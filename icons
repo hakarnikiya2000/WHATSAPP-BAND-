@@ -1,0 +1,2 @@
+wget https://fontawesome.com/download/fontawesome-free-5.15.3-web.zip -O fontawesome.zip
+unzip fontawesome.zip
