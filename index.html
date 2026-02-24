@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GOD OF SERVER · PERMANENT BAN</title>
+  <!-- Google Font for hacking vibe -->
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons (optional, but cool) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* RESET + DARK MATRIX STYLE */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at 20% 30%, #0b0f1c, #010101);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Share Tech Mono', monospace;
+      color: #a0ffa0;
+      padding: 1rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* LIVE HACKING ANIMATION BACKGROUND (matrix rain + glitch) */
+    #hacking-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.45;
+    }
+
+    /* terminal panel – god of server interface */
+    .server-panel {
+      position: relative;
+      z-index: 10;
+      max-width: 750px;
+      width: 100%;
+      background: rgba(10, 20, 8, 0.85);
+      backdrop-filter: blur(4px);
+      border: 2px solid #2aff6e;
+      box-shadow: 0 0 35px #1aff6e, 0 0 15px #00ff80 inset;
+      border-radius: 18px;
+      padding: 2rem 2rem 2.5rem;
+      text-align: center;
+      transition: all 0.2s;
+      animation: panelPulse 3s infinite alternate;
+    }
+
+    @keyframes panelPulse {
+      0% { box-shadow: 0 0 25px #0aff5e, 0 0 10px #0f0 inset; }
+      100% { box-shadow: 0 0 45px #39ff8c, 0 0 25px #b7ffb7 inset; }
+    }
+
+    /* glitch for title */
+    .god-title {
+      font-size: 3.2rem;
+      font-weight: 700;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      text-shadow: -3px -3px 0 #00ff73, 3px 3px 0 #0066ff;
+      margin-bottom: 0.3rem;
+      word-break: break-word;
+      animation: glitch 1.8s infinite steps(1);
+    }
+
+    @keyframes glitch {
+      0%, 100% { transform: skew(0deg, 0deg); opacity: 1; }
+      95% { transform: skew(3deg, 1deg); opacity: 0.9; text-shadow: -5px -2px 0 cyan; }
+      96% { transform: skew(-5deg, -2deg); text-shadow: 5px 3px 0 magenta; }
+      97% { transform: skew(0deg, 0deg); }
+    }
+
+    .sub-badge {
+      color: #b7ffcf;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px dashed #28fa7c;
+      padding-bottom: 0.6rem;
+      letter-spacing: 2px;
+      word-spacing: 6px;
+    }
+
+    /* LOGIN CARD */
+    .login-box {
+      background: #071107;
+      border: 1px solid #1f9f4f;
+      border-radius: 36px;
+      padding: 2rem 2rem 1.8rem;
+      margin: 20px 0 25px;
+      box-shadow: 0 0 20px #00dd66;
+    }
+
+    .cred-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: #0c1c0c;
+      padding: 16px 20px;
+      border-radius: 60px;
+      border: 1px solid #27ff7d;
+    }
+
+    .cred-label {
+      font-size: 1.4rem;
+      color: #acffac;
+      text-transform: uppercase;
+      text-shadow: 0 0 6px #1eff6e;
+    }
+
+    .cred-value {
+      font-size: 2rem;
+      background: black;
+      padding: 0.4rem 1.4rem;
+      border-radius: 48px;
+      border: 1px solid #0f0;
+      color: #b3ffb3;
+      letter-spacing: 2px;
+      box-shadow: 0 0 12px #0f0;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+      word-break: break-word;
+    }
+
+    .cred-value:hover {
+      background: #1a3c1a;
+      box-shadow: 0 0 22px #44ff88;
+    }
+
+    /* BAN hammer zone */
+    .ban-area {
+      margin: 30px 0 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ban-message {
+      font-size: 1.7rem;
+      font-weight: bold;
+      background: #0f0f0f;
+      padding: 0.7rem 2rem;
+      border-radius: 40px;
+      border: 2px solid #ff4d7a;
+      color: #ff9090;
+      text-shadow: 0 0 12px red;
+      animation: blinkWarning 1.2s infinite;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    @keyframes blinkWarning {
+      0% { border-color: #ff4d7a; text-shadow: 0 0 5px #ff5e5e; }
+      50% { border-color: #ff1515; box-shadow: 0 0 35px #f33; text-shadow: 0 0 15px red; }
+      100% { border-color: #ff4d7a; text-shadow: 0 0 5px #ff5e5e; }
+    }
+
+    .ban-action {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .ban-btn {
+      background: #1a1a1a;
+      border: 3px solid #ff366b;
+      color: #ffe2e2;
+      font-size: 2.2rem;
+      padding: 0.7rem 2rem;
+      border-radius: 60px;
+      font-weight: bold;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.25s;
+      box-shadow: 0 0 30px #ff2e4c;
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .ban-btn i {
+      color: #ff8080;
+      font-size: 2rem;
+    }
+
+    .ban-btn:hover {
+      background: #330000;
+      border-color: #ff0000;
+      box-shadow: 0 0 60px #ff4242;
+      transform: scale(1.03);
+    }
+
+    .perm-badge {
+      font-size: 1.8rem;
+      color: #fc5e5e;
+      background: #270000;
+      padding: 8px 30px;
+      border-radius: 30px;
+      border: 1px solid red;
+      letter-spacing: 4px;
+    }
+
+    /* CHANNEL PROMO */
+    .channel-block {
+      margin: 35px 0 20px;
+      border-top: 2px solid #13ec7a;
+      padding-top: 1.5rem;
+    }
+
+    .channel-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+      background: #0d2f0d;
+      padding: 1rem 2rem;
+      border-radius: 60px;
+      border: 1px solid #3eff9e;
+      font-size: 1.5rem;
+      color: #d0ffd0;
+      text-decoration: none;
+      transition: 0.3s;
+      box-shadow: 0 0 15px #32ff7b;
+      word-break: break-word;
+    }
+
+    .channel-link i {
+      font-size: 2.5rem;
+      color: #25D366; /* whatsapp green */
+    }
+
+    .channel-link:hover {
+      background: #174217;
+      box-shadow: 0 0 35px #55ffaa;
+      border-color: white;
+      transform: translateY(-2px);
+    }
+
+    /* status footer */
+    .status-bar {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      color: #6effa0;
+      font-size: 1rem;
+      border-top: 1px solid #2a9f4a;
+      padding-top: 1rem;
+    }
+
+    .blink {
+      animation: blinker 1.5s step-end infinite;
+    }
+
+    @keyframes blinker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    /* responsive tweaks */
+    @media (max-width: 550px) {
+      .god-title { font-size: 2.2rem; letter-spacing: 3px; }
+      .cred-value { font-size: 1.4rem; }
+      .ban-btn { font-size: 1.7rem; padding: 0.5rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- live hacking animation canvas -->
+  <canvas id="hacking-canvas"></canvas>
+
+  <!-- main interface – god of server -->
+  <div class="server-panel">
+    <div class="god-title">GOD OF SERVER</div>
+    <div class="sub-badge">︎▲  PERMANENT BAN HAMMER  ▲</div>
+
+    <!-- login credentials (exactly as you requested) -->
+    <div class="login-box">
+      <div class="cred-row">
+        <span class="cred-label"><i class="fas fa-key"></i> login:</span>
+        <span class="cred-value" onclick="copyToClip('NIKCY@BAND')">NIKCY@BAND <i class="fas fa-copy" style="font-size: 1.2rem; margin-left: 10px;"></i></span>
+      </div>
+      <div style="font-size: 1rem; margin-top: 10px; color: #8affbc;">[ click password to copy ]</div>
+    </div>
+
+    <!-- BAN core : whatsapp band permanent -->
+    <div class="ban-area">
+      <div class="ban-message">
+        <i class="fas fa-ban"></i> WHATSAPP BAN · PERMANENT <i class="fas fa-skull-crossbones"></i>
+      </div>
+      <div class="ban-action">
+        <button class="ban-btn" id="banButton" onclick="triggerBan()">
+          <i class="fas fa-gavel"></i> EXECUTE BAN
+        </button>
+        <span class="perm-badge">✖ LOCK ✖</span>
+      </div>
+      <div id="banStatus" style="color: #ffbebe; margin-top: 10px; min-height: 28px; font-size: 1.3rem;"></div>
+    </div>
+
+    <!-- your whatsapp channel link -->
+    <div class="channel-block">
+      <a href="https://whatsapp.com/channel/0029VbBp6cx5PO15V2fkip3C" target="_blank" class="channel-link">
+        <i class="fab fa-whatsapp"></i> JOIN GOD SERVER CHANNEL
+        <i class="fas fa-external-link-alt" style="font-size: 1.2rem;"></i>
+      </a>
+      <div style="margin-top: 10px; font-size: 1rem;">⚠️ channel = @godserver_whatsapp_band ⚠️</div>
+    </div>
+
+    <!-- live system status (for animation flavor) -->
+    <div class="status-bar">
+      <span><i class="fas fa-circle" style="color: #3aff70; font-size: 0.7rem;"></i> LIVE-HACK v2.3</span>
+      <span class="blink">⚡ root access: GOS-server ⚡</span>
+      <span>🛡️ BAN status: ARMED</span>
+    </div>
+  </div>
+
+  <script>
+    // ---------------------------------------------
+    // LIVE HACKING ANIMATION (matrix + glitch canvas)
+    // ---------------------------------------------
+    const canvas = document.getElementById('hacking-canvas');
+    let ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // columns for matrix rain
+    const columns = Math.floor(canvas.width / 22); // column width approx 22px
+    const drops = [];
+    for (let i = 0; i < columns; i++) {
+      drops[i] = Math.floor(Math.random() * -canvas.height); // negative for staggered start
+    }
+
+    // characters (mix of 0/1 and katakana for cyber feel)
+    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF";
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.045)'; // fade effect (trail)
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#1eff6e'; // neon green
+      ctx.font = '18px "Share Tech Mono", monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        // random character
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        const x = i * 24;
+        const y = drops[i] * 20;
+
+        if (y > 0 && y < canvas.height) {
+          ctx.fillText(text, x, y);
+        }
+
+        // reset if off screen or random chance to simulate flicker
+        if (drops[i] * 20 > canvas.height && Math.random() < 0.975) {
+          drops[i] = 0;
+        } else {
+          // vary speed per column
+          drops[i] += 0.5 + Math.random() * 0.9;
+        }
+      }
+
+      // extra glitch lines (random white/green horizontal lines)
+      if (Math.random() < 0.1) {
+        ctx.fillStyle = '#b0ffb0';
+        ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 80, 2);
+      }
+      if (Math.random() < 0.05) {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 120, 1.5);
+      }
+
+      requestAnimationFrame(drawMatrix);
+    }
+    drawMatrix();
+
+    // copy function for password
+    function copyToClip(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('🔐 NIKCY@BAND copied to clipboard (use for god access)');
+      }).catch(() => {
+        prompt('Manual copy — password:', text);
+      });
+    }
+
+    // BAN trigger animation & message
+    function triggerBan() {
+      const btn = document.getElementById('banButton');
+      const statusDiv = document.getElementById('banStatus');
+
+      // visual feedback
+      btn.style.transform = 'scale(1.1)';
+      btn.style.background = '#440000';
+      btn.style.borderColor = '#ff8888';
+      setTimeout(() => {
+        btn.style.transform = 'scale(1)';
+        btn.style.background = '#1a1a1a';
+        btn.style.borderColor = '#ff366b';
+      }, 300);
+
+      // show permanent ban message with hacking flavor
+      statusDiv.innerHTML = `
+        <span style="color: #ff5e5e; font-size: 2rem; animation: blinker 0.8s infinite;">⚠️ PERMANENT BAN EXECUTED ⚠️</span><br>
+        <span style="color: #aaffaa;">> WhatsApp account terminated from server</span><br>
+        <span style="color: #ffb3b3;">> BAN ID: GOD-${Math.floor(Math.random()*90000+10000)}-PERM</span>
+      `;
+
+      // also trigger a little "hacking" event: extra canvas flash
+      ctx.fillStyle = 'rgba(255, 80, 80, 0.25)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      setTimeout(() => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // but matrix will overdraw, it's fine
+      }, 80);
+
+      // optional: play sound? no, just vibe.
+    }
+
+    // extra: simulate a live "hacking line" on status bar (just for fun)
+    setInterval(() => {
+      const statusEl = document.querySelector('.status-bar span:last-child');
+      if (statusEl) {
+        const oldText = statusEl.innerText;
+        if (oldText.includes('ARMED')) {
+          statusEl.innerHTML = '🛡️ BAN status: <span style="color:#ff6e6e;">TRIGGER READY</span>';
+        } else {
+          statusEl.innerHTML = '🛡️ BAN status: ARMED';
+        }
+      }
+    }, 1700);
+  </script>
+
+  <!-- hidden note: all credentials exactly as described -->
+</body>
+</html>
